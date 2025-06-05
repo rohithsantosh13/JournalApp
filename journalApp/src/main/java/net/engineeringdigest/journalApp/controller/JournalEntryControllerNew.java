@@ -1,6 +1,7 @@
 package net.engineeringdigest.journalApp.controller;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.service.JournalEntryService;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController // says it's the part responsible for REST APIS
 @RequestMapping("/journal") // allows you to map the URLS to this particular part of the code
+@Tag(name="Journal APIs")
 public class JournalEntryControllerNew {
     @Autowired // fetches the bean from IOC container which is nothing but the application context.
     private JournalEntryService journalEntryService;
@@ -66,6 +68,13 @@ public class JournalEntryControllerNew {
             }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // Handler for OPTIONS requests to /journal/id/{myId}
+    @RequestMapping(value = "id/{myId}", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions(@PathVariable ObjectId myId) {
+        // Respond with OK and necessary CORS headers (Spring often adds these automatically with CorsConfig)
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("id/{myId}")

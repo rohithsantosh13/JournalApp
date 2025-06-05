@@ -39,7 +39,7 @@ public class UserScheduler {
     private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
 //    @Scheduled(cron ="0 0 9 ? * SUN")
-    @Scheduled(cron ="0 * * ? * *")
+//    @Scheduled(cron ="0 * * ? * *")
     public void fetchUsersAndSendSaMail(){
         List<User> users = userRepository.getUsersForSA();
         for(User user : users){

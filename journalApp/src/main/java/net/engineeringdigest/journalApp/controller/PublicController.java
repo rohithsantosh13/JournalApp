@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.log4j.Log4j2;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.service.UserDetailsServiceImpl;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/public")
+@Tag(name="Public APIs")
 public class PublicController {
 
     @Autowired
@@ -39,13 +41,25 @@ public class PublicController {
     }
 
     @PostMapping("/signup")
-    public void signup(@RequestBody User user){
-        userService.saveNewUser(user);
+    public ResponseEntity<?> signup(@RequestBody User user) {
+        if (user.getUserName() == null || user.getUserName().trim().isEmpty() ||
+            user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username and password are required.");
+        }
+        try {
+            userService.saveNewUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Signup successful");
+        } catch (org.springframework.dao.DuplicateKeyException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred. Please try again.");
+        }
     }
 
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user){
+        System.out.println("Login attempt: userName=" + user.getUserName() + ", password=" + user.getPassword());
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
             UserDetails userDetails =  userDetailsService.loadUserByUsername(user.getUserName());

@@ -15,9 +15,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class JwtFilter  extends OncePerRequestFilter {
+
+    private static final Logger logger = Logger.getLogger(JwtFilter.class.getName());
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -26,6 +30,9 @@ public class JwtFilter  extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
+        logger.info("Processing request: Method=" + request.getMethod() + ", URI=" + request.getRequestURI());
+
         String authorizationHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
