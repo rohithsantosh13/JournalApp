@@ -16,12 +16,11 @@ public class SwaggerConfig {
         return new OpenAPI().info(new Info().title("Journal APIs").description("Rohith Jatla"))
                 .servers(
                         Arrays.asList(
-                        new Server().url("http://localhost:8081").description("local"),
+                        new Server().url("http://localhost:8080").description("local"),
                         new Server().url("http://localhost:8082").description("live")
                 )
         )
                 .tags(Arrays.asList(new Tag().name("Public APIs"),
-                        new Tag().name("User APIs"),
                         new Tag().name("User APIs"),
                         new Tag().name("Journal APIs"),
                         new Tag().name("Admin APIs")
