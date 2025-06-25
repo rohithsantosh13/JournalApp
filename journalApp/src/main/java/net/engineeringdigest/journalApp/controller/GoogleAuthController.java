@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("auth/google")
@@ -102,13 +103,15 @@ public class GoogleAuthController {
                 
                 log.info("Google user info - Email: {}, Name: {}", email, name);
 
-                UserDetails userDetails = null;
-                User user = null;
-                
-                try {
-                    userDetails = userDetailsService.loadUserByUsername(email);
-                    user = userRepository.findByUserName(email);
-                } catch (Exception e) {
+                // Defensive: check for multiple users with the same email
+                List<User> usersWithEmail = ((List<User>) userRepository.findAll())
+                    .stream().filter(u -> email.equals(u.getEmail())).collect(Collectors.toList());
+                if (usersWithEmail.size() > 1) {
+                    log.error("Multiple users found with the same email: {}. Please resolve duplicates in the database.", email);
+                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Multiple users found with the same email. Please contact support.");
+                }
+                User user = usersWithEmail.isEmpty() ? null : usersWithEmail.get(0);
+                if (user == null) {
                     // User doesn't exist, create new user
                     log.info("Creating new user for email: {}", email);
                     user = User.builder()

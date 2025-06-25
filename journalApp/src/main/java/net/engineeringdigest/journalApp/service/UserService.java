@@ -36,6 +36,10 @@ public class UserService {
 
 
     public void saveUser(User user) {
+        // Only encode password if it's not already encoded
+        if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 

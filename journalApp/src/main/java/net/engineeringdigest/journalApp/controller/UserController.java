@@ -34,10 +34,21 @@ public class UserController {
         String username = authentication.getName();
         User userInDb = userService.findByUserName(username);
         if(userInDb !=null){
-            userInDb.setUserName(user.getUserName());
-            userInDb.setPassword(user.getPassword());
-            userService.saveNewUser(userInDb);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            if (user.getUserName() != null && !user.getUserName().isEmpty()) {
+                userInDb.setUserName(user.getUserName());
+            }
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                userInDb.setPassword(user.getPassword());
+            }
+            if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+                userInDb.setEmail(user.getEmail());
+            }
+            // Only update sentimentAnalysis if present and different
+            if (user.isSentimentAnalysis() != userInDb.isSentimentAnalysis()) {
+                userInDb.setSentimentAnalysis(user.isSentimentAnalysis());
+            }
+            userService.saveUser(userInDb);
+            return new ResponseEntity<>(userInDb, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -58,5 +69,17 @@ public class UserController {
             greeting = "weather today in Dayton is "+weatherResponse.getCurrent().getTemperature();
         }
         return new ResponseEntity<>("Hi "+authentication.getName()+" "+ greeting + "°C",HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUserName(username);
+        if (user != null) {
+            // Optionally, you can create a DTO to avoid exposing sensitive fields
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
