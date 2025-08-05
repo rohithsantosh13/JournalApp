@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Account</title>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="left-section">
+            <div class="left-content">
+                <h1 class="hero-title">Create your free account</h1>
+                <p class="hero-subtitle">Join thousands of users and start building something amazing today.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Free forever for personal use</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited journal entries</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Enterprise-grade security</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="auth-header">
+                <div class="auth-title">Sign up</div>
+                <p class="auth-subtitle">Create your account to get started</p>
+            </div>
+
+            <form class="auth-form" #registrationForm="ngForm" (ngSubmit)="signup()">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-input" id="username" name="userName" type="text" [(ngModel)]="user.userName" required autocomplete="username" aria-label="Username" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-input" id="email" name="email" type="email" [(ngModel)]="user.email" required autocomplete="email" aria-label="Email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" id="password" name="password" type="password" [(ngModel)]="user.password" required autocomplete="new-password" aria-label="Password" />
+                </div>
+                <button type="submit" class="submit-btn" aria-label="Sign up">Sign up</button>
+            </form>
+
+            <div class="auth-footer">
+                <span class="auth-link">Already have an account? <a href="/login">Sign in</a></span>
+                <div class="terms-text">
+                    By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,282 @@
+:root {
+    /* ——— Palette ——— */
+    --white:          #ffffff;
+    --gray-100:       #f7f7f7;
+    --gray-200:       #eee;
+    --gray-500:       #6b7280;
+    --gray-600:       #4b5563;
+    --gray-700:       #374151;
+    --gray-900:       #111;
+    --blue-500:       #3f51b5;
+
+    /* ——— Typography ——— */
+    --font-sans:      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #f7f7f7 0%, #f0f2f5 100%);
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: #333;
+    margin: 0;
+}
+
+.signup-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    min-height: 600px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    overflow: hidden;
+    margin: 2.5rem auto;
+    transition: box-shadow 0.2s;
+}
+.signup-container:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.16);
+}
+
+.left-section {
+    flex: 1;
+    background: linear-gradient(135deg, #111 0%, #374151 100%);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(63, 81, 181, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(63, 81, 181, 0.2) 0%, transparent 50%);
+}
+.left-content {
+    position: relative;
+    z-index: 1;
+}
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+.features-list {
+    text-align: left;
+    margin-top: 2rem;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+.feature-icon {
+    width: 20px;
+    height: 20px;
+    background: #3f51b5;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.right-section {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+}
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.auth-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+.auth-subtitle {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-label {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+.form-input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    color: #333;
+    background: #fafbfc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus {
+    border-color: #3f51b5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.08);
+    background: #fff;
+}
+.form-input.ng-invalid.ng-touched {
+    border-color: #dc2626;
+}
+.form-input::placeholder {
+    color: #bdbdbd;
+}
+.form-help {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+}
+.form-select {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    color: #333;
+    background: #fafbfc;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-select:focus {
+    border-color: #3f51b5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.08);
+    background: #fff;
+}
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+.checkbox-input {
+    margin-top: 0.25rem;
+    accent-color: #3f51b5;
+}
+.checkbox-label {
+    font-size: 0.9rem;
+    color: #374151;
+    line-height: 1.4;
+}
+.submit-btn {
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #111;
+    color: #fff;
+    transition: background 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+.submit-btn:hover {
+    background: #333;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+.auth-link {
+    color: #3f51b5;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.18s;
+}
+.auth-link:hover {
+    color: #1a237e;
+    text-decoration: underline;
+}
+.terms-text {
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.4;
+}
+.terms-text a {
+    color: #3f51b5;
+    text-decoration: none;
+}
+.terms-text a:hover {
+    text-decoration: underline;
+}
+.error-message {
+    font-size: 0.8rem;
+    color: #dc2626;
+    margin-top: 0.25rem;
+}
+@media (max-width: 900px) {
+    .signup-container {
+        flex-direction: column;
+        max-width: 98vw;
+        min-width: 0;
+        margin: 1.2rem auto;
+    }
+    .left-section {
+        padding: 2rem;
+        min-height: 200px;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .features-list {
+        display: none;
+    }
+    .right-section {
+        padding: 2rem;
+    }
+    .auth-title {
+        font-size: 1.5rem;
+    }
+    .submit-btn {
+        font-size: 1rem;
+        padding: 0.8rem 0.8rem;
+    }
+}
